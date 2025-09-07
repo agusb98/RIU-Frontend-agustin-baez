@@ -1,0 +1,149 @@
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    --color-primary: #338049;
+    --color-secondary: white;
+    --color-tertiary: #ff5863;
+    --color-typography: black;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Establece el fondo del cuerpo usando el color secundario definido en tailwind.config.js */
+body {
+  background-color: var(--color-secondary);
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+mat-error {
+  color: red !important;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* https://webkit-scroll-gen.sourceforge.net/ */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border: 1px solid var(--color-secondary);
+  border-radius: 50px;
+  box-shadow: 0px 0px 0px 100000vh transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--color-primary);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none transparent;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: transparent;
+}
+::-webkit-scrollbar-track:active {
+  background: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+/* ===== END Scrollbar CSS ===== */
+
+/* Tailwind generic classes */
+@layer components {
+  .btn {
+    @apply flex;
+    @apply gap-2;
+    @apply items-center;
+    @apply justify-center;
+
+    @apply rounded-full;
+
+    @apply hover:brightness-90;
+    @apply focus:outline-none;
+    @apply active:brightness-90;
+
+    @apply p-2;
+
+    @apply disabled:opacity-50;
+    @apply cursor-pointer;
+
+    @apply shadow-sm;
+    @apply bg-stone-800;
+    @apply text-white;
+  }
+
+  .bg-custom {
+    @apply bg-stone-800;
+    @apply text-white;
+  }
+
+  .bg-custom-invert {
+    @apply text-stone-800;
+    @apply bg-white;
+    @apply relative;
+  }
+
+  .material-icons {
+    @apply mx-0;
+    @apply px-0;
+    @apply select-none;
+  }
+
+  .card {
+    @apply rounded-lg;
+    @apply shadow-sm;
+    @apply p-2;
+  }
+
+  .container-table {
+    @apply w-full;
+    @apply overflow-x-auto;
+
+    @apply text-stone-800;
+    @apply bg-white;
+
+    @apply rounded-md;
+    @apply p-2;
+  }
+
+  table {
+    @apply min-w-full;
+    @apply whitespace-nowrap;
+    @apply divide-y;
+    @apply divide-gray-300;
+    @apply bg-white;
+    @apply rounded-lg;
+  }
+
+  table thead tr {
+    @apply text-lg;
+    @apply text-left;
+  }
+
+  table tbody tr {
+    @apply odd:bg-gray-200;
+    @apply border-b;
+    @apply border-gray-400;
+  }
+
+  table tbody tr td {
+    @apply p-2;
+  }
+}

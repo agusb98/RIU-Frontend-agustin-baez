@@ -1,12 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
+import { ConfigService } from './shared/services/config.service';
+import { LoadingDirective } from './shared/directives/loading.directive';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+
+    LoadingDirective,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('RIU-Frontend-agustin-baez');
+  private configSrv = inject(ConfigService);
+  protected isLoading = this.configSrv.getLoading();
 }

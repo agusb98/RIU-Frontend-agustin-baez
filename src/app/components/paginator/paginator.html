@@ -1,0 +1,54 @@
+<nav
+  aria-label="Navegación de páginas"
+  class="w-full flex justify-center items-center text-sm font-medium"
+>
+  <div class="flex items-center gap-2">
+    <!-- Botón Previous -->
+    <button
+      class="btn rounded-sm px-4"
+      [disabled]="!(currentPageIndex > 0)"
+      (click)="setCurrentPage(currentPageIndex - 1)"
+    >
+      Anterior
+    </button>
+
+    <!-- Contenedor de páginas con scroll horizontal -->
+    <!-- paginator.html -->
+    <div
+      #paginationContainer
+      class="w-full max-w-md relative overflow-hidden py-4"
+      (mousedown)="startDrag($event)"
+      (mousemove)="doDrag($event)"
+      (mouseup)="endDrag()"
+      (mouseleave)="endDrag()"
+      (touchstart)="startDrag($event)"
+      (touchmove)="doDrag($event)"
+      (touchend)="endDrag()"
+    >
+      <div
+        class="flex gap-2"
+        [style.transform]="'translateX(' + currentTranslate + 'px)'"
+        [style.transition]="!isDragging ? 'transform 0.3s ease-out' : 'none'"
+      >
+        @for (page of pages; track $index; let cIndex = $index) {
+        <div
+          class="btn px-4 rounded-sm font-bold whitespace-nowrap"
+          [class]="cIndex === currentPageIndex ? '' : 'bg-custom-invert'"
+          (click)="setCurrentPage(cIndex)"
+        >
+          {{ page }}
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Botón Next -->
+    <button
+      class="btn rounded-sm px-4"
+      [disabled]="!(currentPageIndex < pages.length! - 1)"
+      (click)="setCurrentPage(currentPageIndex + 1)"
+    >
+      Siguiente
+    </button>
+  </div>
+</nav>

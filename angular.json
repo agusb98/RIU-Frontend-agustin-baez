@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "css"
         }
       },
       "root": "",
@@ -18,11 +18,9 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
+            "inlineStyleLanguage": "css",
             "assets": [
               {
                 "glob": "**/*",
@@ -30,7 +28,9 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/custom-theme.scss",
+              "src/styles.css",
+              "./node_modules/material-icons/iconfont/material-icons.css"
             ]
           },
           "configurations": {
@@ -75,12 +75,9 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
+            "inlineStyleLanguage": "css",
             "assets": [
               {
                 "glob": "**/*",
@@ -88,7 +85,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.css",
+              "./node_modules/material-icons/iconfont/material-icons.css"
             ]
           }
         }

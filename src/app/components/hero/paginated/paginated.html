@@ -1,0 +1,59 @@
+<div class="flex flex-col items-stretch gap-2">
+  <div class="h-14 flex justify-between items-center bg-white rounded-md shadow-xs px-4 py-2">
+    <h6 class="md:text-xl">Aquí podra administrar súper héroes</h6>
+
+    <div class="flex items-center gap-2">
+      <a [routerLink]="['../', 'create']" class="btn" [matTooltip]="'Agregar súper héroe.'">
+        <i class="material-icons">add</i>
+        <span class="hidden md:inline">Agregar súper héroe</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container-table">
+    <table>
+      @if (paginated$ | async; as paginated) { @for (item of paginated.content; track $index) {
+      <tr>
+        <td class="whitespace-nowrap">
+          {{ item | json }}
+        </td>
+
+        <td class="whitespace-wrap">
+          <div class="inline-flex items-center gap-1">
+            <a
+              [routerLink]="['../', 'detail', item.id]"
+              class="btn m-0 p-1"
+              [matTooltip]="'Detalles súper héroe.'"
+            >
+              <i class="material-icons">preview</i>
+            </a>
+
+            <a
+              [routerLink]="['../', 'update', item.id]"
+              class="btn m-0 p-1"
+              [matTooltip]="'Modificar súper héroe.'"
+            >
+              <i class="material-icons">mode_edit</i>
+            </a>
+
+            <button class="btn m-0 p-1 bg-red-500" [matTooltip]="'Eliminar súper héroe.'">
+              <i class="material-icons">delete_forever</i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      }
+
+      <c-paginator
+        [currentPageIndex]="paginated.pagination.current_page"
+        [pageSize]="paginated.pagination.page_size"
+        [total_pages]="paginated.pagination.total_pages"
+        (changeCurrentIndex)="onSetCurrentPage($event)"
+      >
+      </c-paginator>
+      } @else {
+      <p>Cargando..</p>
+      }
+    </table>
+  </div>
+</div>

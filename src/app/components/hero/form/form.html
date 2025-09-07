@@ -1,0 +1,72 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col items-stretch gap-2">
+  <div class="flex flex-col card bg-custom-invert">
+    <p class="text-lg">{{ title }}</p>
+
+    <div class="flex grid md:grid-cols-6 gap-x-2">
+      @if (form.get("name"); as aux) {
+      <mat-form-field class="md:col-span-2">
+        <mat-label> Ingrese nombre </mat-label>
+
+        <input
+          matInput
+          placeholder="Spider man"
+          formControlName="name"
+          required
+          minlength="2"
+          maxlength="30"
+        />
+
+        <mat-error>
+          @if (aux.invalid && (aux.dirty || aux.touched)) {
+          {{ aux.hasError('required') ? 'Es requerido' : 'Es invalido' }}
+          }
+        </mat-error>
+      </mat-form-field>
+      } @if (form.get("secretIdentity"); as aux) {
+      <mat-form-field class="md:col-span-4">
+        <mat-label> Ingrese nombre secreto </mat-label>
+
+        <input
+          matInput
+          placeholder="Peter Parker"
+          formControlName="secretIdentity"
+          required
+          minlength="2"
+          maxlength="30"
+        />
+
+        <mat-error>
+          @if (aux.invalid && (aux.dirty || aux.touched)) {
+          {{ aux.hasError('required') ? 'Es requerido' : 'Es invalido' }}
+          }
+        </mat-error>
+      </mat-form-field>
+      } @if (form.get("mainPower"); as aux) {
+      <mat-form-field class="col-span-full">
+        <mat-label> Ingrese superpoder </mat-label>
+
+        <input
+          matInput
+          placeholder="Poderes arácnidos"
+          formControlName="mainPower"
+          required
+          minlength="2"
+          maxlength="30"
+        />
+
+        <mat-error>
+          @if (aux.invalid && (aux.dirty || aux.touched)) {
+          {{ aux.hasError('required') ? 'Es requerido' : 'Es invalido' }}
+          }
+        </mat-error>
+      </mat-form-field>
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col card bg-custom-invert">
+    <p class="text-lg">Confirmar cambios</p>
+
+    <button type="submit" class="col-span-full btn mt-4">Registrar Súper héroe</button>
+  </div>
+</form>

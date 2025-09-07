@@ -1,0 +1,18 @@
+<div class="flex flex-col items-stretch gap-2">
+  <div class="h-14 flex justify-between items-center bg-white rounded-md shadow-xs px-4 py-2">
+    <h6 class="md:text-xl">Aquí podra actualizar súper héroe</h6>
+
+    <div class="flex items-center gap-2">
+      <a [routerLink]="['/']" class="btn" [matTooltip]="'Súper héroes'">
+        <i class="material-icons">assignment</i>
+        <span class="hidden md:inline">Súper héroes</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="max-w-xl">
+    @if(obs$ | async; as res) {
+    <hero-form [model]="res.data" (newModel)="onSubmit($event)"></hero-form>
+    }
+  </div>
+</div>

@@ -12,9 +12,9 @@ import { ClickOutsideDirective } from '../../shared/directives/click-outside.dir
   selector: 'c-modal',
   standalone: true,
   imports: [NgClass, ClickOutsideDirective],
-  templateUrl: './modal.component.html',
+  templateUrl: './modal.html',
 })
-export class ModalComponent {
+export class Modal {
   @Input() showCloseBtn = true;
   @Input() closeOutside = false;
   @Input() addClass = '';

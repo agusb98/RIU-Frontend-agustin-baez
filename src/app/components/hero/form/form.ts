@@ -6,10 +6,11 @@ import { MatInputModule } from '@angular/material/input';
 import { HeroForm } from '../../../shared/models/interfaces/hero/HeroForm';
 import { HeroCreate } from '../../../shared/models/interfaces/hero/HeroCreate';
 import { HeroUpdate } from '../../../shared/models/interfaces/hero/HeroUpdate';
+import { UpperCaseDirective } from '../../../shared/directives/upperCase.directive';
 
 @Component({
   selector: 'hero-form',
-  imports: [MatInputModule, ReactiveFormsModule],
+  imports: [MatInputModule, ReactiveFormsModule, UpperCaseDirective],
   templateUrl: './form.html',
 })
 export class Form extends FormBase implements OnInit {

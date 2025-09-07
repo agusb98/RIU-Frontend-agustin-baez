@@ -3,15 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    --color-primary: #338049;
-    --color-secondary: white;
-    --color-tertiary: #ff5863;
-    --color-typography: black;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -30,38 +21,19 @@ mat-error {
 /* ===== Scrollbar CSS ===== */
 /* https://webkit-scroll-gen.sourceforge.net/ */
 ::-webkit-scrollbar {
-  width: 15px;
-  height: 15px;
+  @apply w-4 h-4;
 }
+
 ::-webkit-scrollbar-button {
-  width: 0px;
-  height: 0px;
+  @apply w-0 h-0;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border: 1px solid var(--color-secondary);
-  border-radius: 50px;
-  box-shadow: 0px 0px 0px 100000vh transparent;
+  @apply bg-stone-800 rounded-full border border-gray-300;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
-}
+
 ::-webkit-scrollbar-thumb:active {
-  background: var(--color-primary);
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-  border: 0px none transparent;
-  border-radius: 50px;
-}
-::-webkit-scrollbar-track:hover {
-  background: transparent;
-}
-::-webkit-scrollbar-track:active {
-  background: transparent;
-}
-::-webkit-scrollbar-corner {
-  background: transparent;
+  @apply bg-stone-800;
 }
 /* ===== END Scrollbar CSS ===== */
 

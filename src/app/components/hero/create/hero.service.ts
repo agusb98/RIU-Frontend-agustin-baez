@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, of, delay, throwError } from 'rxjs';
+import { Observable, of, delay, throwError, tap, catchError } from 'rxjs';
 
 import { Response } from '../../../shared/models/interfaces/Response';
 import { ConfigService } from '../../../shared/services/config.service';
@@ -70,7 +70,7 @@ export class HeroService {
       message: 'Heroes list paginated',
     };
 
-    return of(response).pipe(delay(this.DELAY_MS));
+    return this.handleResponseWithLoading(response);
   }
 
   public add(model: HeroCreate): Observable<Response<HeroDetail>> {
@@ -94,7 +94,7 @@ export class HeroService {
       message: 'Hero created successfully',
     };
 
-    return of(response).pipe(delay(this.DELAY_MS));
+    return this.handleResponseWithLoading(response);
   }
 
   public getOne(id: HeroDetail['id']): Observable<Response<HeroDetail>> {
@@ -110,7 +110,7 @@ export class HeroService {
       message: 'Hero details',
     };
 
-    return of(response).pipe(delay(this.DELAY_MS));
+    return this.handleResponseWithLoading(response);
   }
 
   public update(model: HeroUpdate): Observable<Response<HeroDetail>> {
@@ -135,7 +135,7 @@ export class HeroService {
       message: 'Hero updated successfully',
     };
 
-    return of(response).pipe(delay(this.DELAY_MS));
+    return this.handleResponseWithLoading(response);
   }
 
   public remove(model: HeroDetail): Observable<Response<HeroDetail>> {
@@ -150,7 +150,7 @@ export class HeroService {
       message: 'Hero removed successfully',
     };
 
-    return of(response).pipe(delay(this.DELAY_MS));
+    return this.handleResponseWithLoading(response);
   }
 
   // Métodos auxiliares privados
@@ -166,5 +166,18 @@ export class HeroService {
   private generateId(heroes: HeroDetail[]): number {
     if (heroes.length === 0) return 1;
     return Math.max(...heroes.map((hero) => hero.id!)) + 1;
+  }
+
+  private handleResponseWithLoading<T>(response: T): Observable<T> {
+    this.configSrv.setLoading(true);
+
+    return of(response).pipe(
+      delay(this.DELAY_MS),
+      tap(() => this.configSrv.setLoading(false)),
+      catchError((error) => {
+        this.configSrv.setLoading(false);
+        return throwError(error);
+      })
+    );
   }
 }

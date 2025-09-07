@@ -8,6 +8,8 @@ import {
   AfterViewInit,
   OnChanges,
   SimpleChanges,
+  inject,
+  ChangeDetectorRef,
 } from '@angular/core';
 
 @Component({
@@ -21,7 +23,7 @@ export class Paginator implements AfterViewInit, OnChanges {
 
   @Output() changeCurrentIndex = new EventEmitter<number>();
 
-  // Cambiar a itemWidth dinámico
+  private cdr = inject(ChangeDetectorRef);
   private itemWidth: number = 0;
   private gap: number = 0;
 
@@ -34,10 +36,6 @@ export class Paginator implements AfterViewInit, OnChanges {
   isDragging = false;
   prevTranslate = 0;
   currentTranslate = 0;
-  animationID: any;
-  minTranslate = 0;
-  maxTranslate = 0;
-  dragThreshold = 30; // Mínimo desplazamiento para considerar un arrastre válido
 
   @ViewChild('paginationContainer', { static: false })
   paginationContainer!: ElementRef;
@@ -45,6 +43,7 @@ export class Paginator implements AfterViewInit, OnChanges {
   ngAfterViewInit() {
     this.calculateSizes();
     this.updatePosition();
+    this.cdr.detectChanges(); // Trigger change detection manually
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -57,9 +56,7 @@ export class Paginator implements AfterViewInit, OnChanges {
   }
 
   get pages(): number[] {
-    return this.total_pages
-      ? Array.from({ length: this.total_pages }, (_, i) => i + 1)
-      : [];
+    return this.total_pages ? Array.from({ length: this.total_pages }, (_, i) => i + 1) : [];
   }
 
   calculateSizes(): void {
@@ -104,10 +101,7 @@ export class Paginator implements AfterViewInit, OnChanges {
 
   // Método auxiliar
   private getClientX(event: MouseEvent | TouchEvent): number {
-    return (
-      (event as TouchEvent).touches?.[0]?.clientX ??
-      (event as MouseEvent).clientX
-    );
+    return (event as TouchEvent).touches?.[0]?.clientX ?? (event as MouseEvent).clientX;
   }
 
   protected setCurrentPage(index: number): void {

@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { DeleteModal as component } from './delete-modal';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { DeleteModal } from './delete-modal';
-
-describe('Detail', () => {
-  let component: DeleteModal;
-  let fixture: ComponentFixture<DeleteModal>;
-
+describe('DeleteModal', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeleteModal],
+      imports: [component, RouterTestingModule],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(DeleteModal);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should DeleteModal', () => {
-    expect(component).toBeTruthy();
+  it('should create the delete-modal', () => {
+    const fixture = TestBed.createComponent(component);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

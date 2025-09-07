@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Hero } from '../hero.component';
-import { ModalComponent } from '../../modal/modal.component';
+import { Modal } from '../../modal/modal';
 import { HeroDetail } from '../../../shared/models/interfaces/hero/HeroDetail';
 import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'hero-delete-modal',
-  imports: [ModalComponent, JsonPipe],
+  imports: [Modal, JsonPipe],
   templateUrl: './delete-modal.html',
 })
 export class DeleteModal extends Hero {

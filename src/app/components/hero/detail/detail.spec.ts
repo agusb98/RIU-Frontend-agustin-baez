@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { Detail } from './detail';
+import { TestBed } from '@angular/core/testing';
+import { Detail as component } from './detail';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Detail', () => {
-  let component: Detail;
-  let fixture: ComponentFixture<Detail>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Detail],
+      imports: [RouterTestingModule, component],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(Detail);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should detail', () => {
-    expect(component).toBeTruthy();
+  it('should create the detail', () => {
+    const fixture = TestBed.createComponent(component);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

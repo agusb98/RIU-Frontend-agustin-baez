@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { Update } from './update';
+import { TestBed } from '@angular/core/testing';
+import { Update as component } from './update';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Update', () => {
-  let component: Update;
-  let fixture: ComponentFixture<Update>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Update],
+      imports: [RouterTestingModule, component],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(Update);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should update', () => {
-    expect(component).toBeTruthy();
+  it('should create the update', () => {
+    const fixture = TestBed.createComponent(component);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

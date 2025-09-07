@@ -11,12 +11,18 @@
   </div>
 
   <div class="max-w-xl">
-    @if(obs$ | async; as res) {
-    <hero-form
-      [model]="res.data"
-      [btnText]="'Modificar súper héroe'"
-      (newModel)="onSubmit($event)"
-    ></hero-form>
-    }
+    <div class="flex flex-col items-stretch gap-2">
+      <div class="flex flex-col card bg-custom-invert">
+        @if(obs$ | async; as res) {
+        <hero-form
+          [model]="res.data"
+          [btnText]="'Modificar súper héroe'"
+          (newModel)="onSubmit($event)"
+        ></hero-form>
+        } @else {
+        <p class="text-lg">Cargando..</p>
+        }
+      </div>
+    </div>
   </div>
 </div>

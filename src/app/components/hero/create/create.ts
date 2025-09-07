@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Form } from '../form/form';
-import { Base } from '../base/base.component';
+import { Hero } from '../hero.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import { HeroForm } from '../../../shared/models/interfaces/hero/HeroForm';
 import { HeroCreate } from '../../../shared/models/interfaces/hero/HeroCreate';
@@ -12,7 +12,7 @@ import { HeroCreate } from '../../../shared/models/interfaces/hero/HeroCreate';
   imports: [RouterLink, MatTooltip, Form],
   templateUrl: './create.html',
 })
-export class Create extends Base {
+export class Create extends Hero {
   protected model: HeroCreate = {};
 
   protected onSubmit(model: HeroForm) {

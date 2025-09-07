@@ -1,16 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, of, delay, throwError, tap, catchError } from 'rxjs';
 
-import { Response } from '../../../shared/models/interfaces/Response';
-import { ConfigService } from '../../../shared/services/config.service';
-import { HeroDetail } from '../../../shared/models/interfaces/hero/HeroDetail';
-import { HeroUpdate } from '../../../shared/models/interfaces/hero/HeroUpdate';
-import { HeroCreate } from '../../../shared/models/interfaces/hero/HeroCreate';
-import { HeroCriteria } from '../../../shared/models/interfaces/hero/HeroCriteria';
+import { Response } from '../../shared/models/interfaces/Response';
+import { ConfigService } from '../../shared/services/config.service';
+import { HeroDetail } from '../../shared/models/interfaces/hero/HeroDetail';
+import { HeroUpdate } from '../../shared/models/interfaces/hero/HeroUpdate';
+import { HeroCreate } from '../../shared/models/interfaces/hero/HeroCreate';
+import { HeroCriteria } from '../../shared/models/interfaces/hero/HeroCriteria';
 import {
   PaginatedResponse,
   PaginationMetadata,
-} from '../../../shared/models/interfaces/PaginationMetadata';
+} from '../../shared/models/interfaces/PaginationMetadata';
 
 @Injectable({
   providedIn: 'root',

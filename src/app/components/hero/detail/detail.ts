@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { Base } from '../base/base.component';
+import { Hero } from '../hero.component';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { catchError, EMPTY, Observable, of } from 'rxjs';
@@ -15,7 +15,7 @@ import { HeroDetail } from '../../../shared/models/interfaces/hero/HeroDetail';
   imports: [RouterLink, MatTooltip, AsyncPipe, JsonPipe],
   templateUrl: './detail.html',
 })
-export class Detail extends Base implements OnInit {
+export class Detail extends Hero implements OnInit {
   @Input({ alias: 'heroId', transform: toNumber }) id!: HeroDetail['id'];
   protected obs$: Observable<Response<HeroDetail>> = of();
 

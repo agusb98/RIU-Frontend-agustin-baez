@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Form } from '../form/form';
 
 import { AsyncPipe } from '@angular/common';
-import { Base } from '../base/base.component';
+import { Hero } from '../hero.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import { catchError, EMPTY, Observable, of } from 'rxjs';
 import { toNumber } from '../../../shared/utils/input-transforms';
@@ -17,7 +17,7 @@ import { HeroUpdate } from '../../../shared/models/interfaces/hero/HeroUpdate';
   imports: [RouterLink, MatTooltip, Form, AsyncPipe],
   templateUrl: './update.html',
 })
-export class Update extends Base implements OnInit {
+export class Update extends Hero implements OnInit {
   @Input({ alias: 'heroId', transform: toNumber }) id!: HeroDetail['id'];
   protected obs$: Observable<Response<HeroUpdate>> = of();
 

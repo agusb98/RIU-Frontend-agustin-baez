@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { map, Observable } from 'rxjs';
 
-import { Base } from '../base/base.component';
+import { Hero } from '../hero.component';
 import { Paginator } from '../../paginator/paginator';
 import { MatTooltip } from '@angular/material/tooltip';
 import { HeroDetail } from '../../../shared/models/interfaces/hero/HeroDetail';
@@ -15,7 +15,7 @@ import { PaginatedResponse } from '../../../shared/models/interfaces/PaginationM
   imports: [RouterLink, MatTooltip, AsyncPipe, Paginator, JsonPipe],
   templateUrl: './paginated.html',
 })
-export class Paginated extends Base implements OnInit {
+export class Paginated extends Hero implements OnInit {
   private pCriterial: HeroCriteria = {};
 
   protected paginated$!: Observable<PaginatedResponse<HeroDetail>>;

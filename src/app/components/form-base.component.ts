@@ -1,13 +1,13 @@
 import { inject, OnDestroy, Injectable } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
-import { Base } from './hero/base/base.component';
+import { Hero } from './hero/hero.component';
 import { ControlConfig, ɵNullableFormControls } from '../shared/models/interfaces/ControlConfig';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators, AbstractControl, FormArray, } from '@angular/forms';
 
 @Injectable()
 export abstract class FormBase
-  extends Base
+  extends Hero
   implements OnDestroy {
   protected form: FormGroup;
   private destroy$ = new Subject<void>();

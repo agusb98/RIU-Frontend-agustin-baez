@@ -1,7 +1,7 @@
-<c-modal (closed)="onClose()" [addClass]="'w-auto max-w-md h-auto max-h-[90vh] overflow-y-auto'">
+<c-modal (closed)="onClose()" [addClass]="'w-auto max-w-sm h-auto max-h-[90vh] overflow-y-auto'">
   <ng-container modalBody>
     <div class="flex flex-col items-center gap-5">
-      <h6 class="text-xl">Eliminar súper héroe: {{ model.name }}</h6>
+      <h6 class="text-xl">¿Está seguro que se desea borrar el héroe?</h6>
 
       <div class="grid grid-cols-5 gap-y-5 gap-x-2">
         <div class="col-span-full text-wrap wrap">

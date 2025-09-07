@@ -2,21 +2,21 @@
   class="w-screen h-full flex items-center justify-center fixed top-0 left-0 backdrop-filter backdrop-blur-sm z-10"
 >
   <div
-    class="container flex flex-col items-center justify-center gap-2 py-2 md:px-2 bg-white rounded-lg shadow-lg max-w-full max-h-screen relative"
+    class="container flex flex-col items-center justify-center gap-2 py-2 md:px-2 bg-white rounded-lg shadow-lg max-w-full max-h-screen relative mx-2 md:mx-0"
     [ngClass]="addClass"
     (clickOutside)="closeQuick()"
   >
     <ng-content select="[modalBody]"></ng-content>
 
     @if (showCloseBtn) {
-      <button
-        type="button"
-        (click)="closeModal()"
-        class="btn m-0 p-0 text-current text-sm absolute top-2 right-2 shadow-lg"
-        [class]="alertBtn ? 'bg-red-500' : 'bg-white'"
-      >
-        <i class="material-icons">close</i>
-      </button>
+    <button
+      type="button"
+      (click)="closeModal()"
+      class="btn m-0 p-0 text-current text-sm absolute top-2 right-2 shadow-lg"
+      [class]="alertBtn ? 'bg-red-500' : 'bg-white'"
+    >
+      <i class="material-icons">close</i>
+    </button>
     }
   </div>
 </div>

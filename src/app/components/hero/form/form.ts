@@ -14,7 +14,8 @@ import { UpperCaseDirective } from '../../../shared/directives/upperCase.directi
   templateUrl: './form.html',
 })
 export class Form extends FormBase implements OnInit {
-  @Input() model: HeroCreate | HeroUpdate = {};
+  @Input({ required: true }) model: HeroCreate | HeroUpdate = {};
+  @Input() btnText: string = "Guardar cambios";
   @Output() newModel = new EventEmitter<HeroCreate>();
 
   @Input() title: string = 'Datos súper héroe';

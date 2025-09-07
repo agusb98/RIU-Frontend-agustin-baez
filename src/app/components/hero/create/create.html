@@ -1,6 +1,6 @@
 <div class="flex flex-col items-stretch gap-2">
   <div class="h-14 flex justify-between items-center bg-white rounded-md shadow-xs px-4 py-2">
-    <h6 class="md:text-xl">Aquí podra agregar súper héroe</h6>
+    <h6 class="md:text-xl">Aquí podra registrar súper héroe</h6>
 
     <div class="flex items-center gap-2">
       <a [routerLink]="['/']" class="btn" [matTooltip]="'Súper héroes'">
@@ -11,6 +11,10 @@
   </div>
 
   <div class="max-w-xl">
-    <hero-form [model]="model" (newModel)="onSubmit($event)"></hero-form>
+    <hero-form
+      [model]="model"
+      [btnText]="'Registrar súper héroe'"
+      (newModel)="onSubmit($event)"
+    ></hero-form>
   </div>
 </div>

@@ -9,16 +9,18 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { HeroDetail } from '../../../shared/models/interfaces/hero/HeroDetail';
 import { HeroCriteria } from '../../../shared/models/interfaces/hero/HeroCriteria';
 import { PaginatedResponse } from '../../../shared/models/interfaces/PaginationMetadata';
+import { DeleteModal } from '../delete-modal/delete-modal';
 
 @Component({
   selector: 'hero-paginated',
-  imports: [RouterLink, MatTooltip, AsyncPipe, Paginator, JsonPipe],
+  imports: [RouterLink, MatTooltip, AsyncPipe, JsonPipe, Paginator, DeleteModal],
   templateUrl: './paginated.html',
 })
 export class Paginated extends Hero implements OnInit {
   private pCriterial: HeroCriteria = {};
 
   protected paginated$!: Observable<PaginatedResponse<HeroDetail>>;
+  protected modelDelete!: HeroDetail | null;
 
   ngOnInit(): void {
     this.loadItems();
@@ -31,5 +33,13 @@ export class Paginated extends Hero implements OnInit {
   protected onSetCurrentPage(page: HeroCriteria['page']) {
     this.pCriterial.page = page;
     this.loadItems();
+  }
+
+  protected onDelete(model: HeroDetail | null = null) {
+    this.modelDelete = model;
+
+    if (!this.modelDelete) {
+      this.loadItems();
+    }
   }
 }

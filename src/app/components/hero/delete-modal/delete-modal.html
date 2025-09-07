@@ -1,0 +1,19 @@
+<c-modal (closed)="onClose()" [addClass]="'w-auto max-w-md h-auto max-h-[90vh] overflow-y-auto'">
+  <ng-container modalBody>
+    <div class="flex flex-col items-center gap-5">
+      <h6 class="text-xl">Eliminar súper héroe: {{ model.name }}</h6>
+
+      <div class="grid grid-cols-5 gap-y-5 gap-x-2">
+        <div class="col-span-full text-wrap wrap">
+          {{ model | json }}
+        </div>
+
+        <div class="col-span-full flex justify-end">
+          <button (click)="onDelete()" class="btn bg-red-500">
+            <i class="material-icons">delete_forever</i> Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</c-modal>

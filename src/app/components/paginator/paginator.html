@@ -1,54 +1,46 @@
-<nav
-  aria-label="Navegación de páginas"
-  class="w-full flex justify-center items-center text-sm font-medium"
->
-  <div class="flex items-center gap-2">
-    <!-- Botón Previous -->
-    <button
-      class="btn rounded-sm px-4"
-      [disabled]="!(currentPageIndex > 1)"
-      (click)="setCurrentPage(currentPageIndex - 1)"
-    >
-      Anterior
+<div class="flex justify-center w-full">
+  <div class="flex gap-2">
+    <button type="button" (click)="onNext(1)" class="relative" [matTooltip]="'Pagina Inicial'">
+      <i class="material-icons btn p-2 m-0">first_page</i>
     </button>
 
-    <!-- Contenedor de páginas con scroll horizontal -->
-    <!-- paginator.html -->
-    <div
-      #paginationContainer
-      class="w-full max-w-md relative overflow-hidden py-4"
-      (mousedown)="startDrag($event)"
-      (mousemove)="doDrag($event)"
-      (mouseup)="endDrag()"
-      (mouseleave)="endDrag()"
-      (touchstart)="startDrag($event)"
-      (touchmove)="doDrag($event)"
-      (touchend)="endDrag()"
+    <button
+      type="button"
+      (click)="onNext(currentPage - 1)"
+      class="relative"
+      [matTooltip]="'Pagina Anterior'"
     >
-      <div
-        class="flex gap-2"
-        [style.transform]="'translateX(' + currentTranslate + 'px)'"
-        [style.transition]="!isDragging ? 'transform 0.3s ease-out' : 'none'"
+      <i class="material-icons btn p-2 m-0">arrow_back_ios_new</i>
+    </button>
+
+    <div class="flex gap-1 mx-2">
+      @for (i of items; track i) {
+      <button
+        (click)="onNext(i)"
+        class="btn w-10 h-10 shadow-lg"
+        [class]="i === currentPage ? 'bg-stone-500' : ''"
       >
-        @for (page of pages; track $index; let cIndex = $index) {
-        <div
-          class="btn px-4 rounded-sm font-bold whitespace-nowrap"
-          [class]="cIndex === currentPageIndex ? '' : 'bg-custom-invert'"
-          (click)="setCurrentPage(cIndex)"
-        >
-          {{ page }}
-        </div>
-        }
-      </div>
+        {{ i }}
+      </button>
+      }
     </div>
 
-    <!-- Botón Next -->
     <button
-      class="btn rounded-sm px-4"
-      [disabled]="!(currentPageIndex < pages.length! - 1)"
-      (click)="setCurrentPage(currentPageIndex + 1)"
+      type="button"
+      (click)="onNext(currentPage + 1)"
+      class="relative"
+      [matTooltip]="'Pagina Siguiente'"
     >
-      Siguiente
+      <i class="material-icons btn p-2 m-0">arrow_forward_ios</i>
+    </button>
+
+    <button
+      type="button"
+      (click)="onNext(totalPages)"
+      class="relative"
+      [matTooltip]="'Pagina Final'"
+    >
+      <i class="material-icons btn p-2 m-0">last_page</i>
     </button>
   </div>
-</nav>
+</div>

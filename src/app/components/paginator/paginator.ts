@@ -1,121 +1,58 @@
 import {
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   Output,
-  ViewChild,
-  AfterViewInit,
-  OnChanges,
-  SimpleChanges,
-  inject,
-  ChangeDetectorRef,
+  OnInit,
 } from '@angular/core';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'c-paginator',
+  standalone: true,
+  imports: [MatTooltip],
   templateUrl: './paginator.html',
 })
-export class Paginator implements AfterViewInit, OnChanges {
-  @Input() currentPageIndex = 0;
-  @Input() pageSize: number = 1;
-  @Input() total_pages!: number;
+export class Paginator implements OnInit {
+  @Input() currentPage: number = 0;
+  @Input() totalPages: number = 1;
+  @Input() quantity: number = 5;
 
-  @Output() changeCurrentIndex = new EventEmitter<number>();
+  @Output() nextPage = new EventEmitter<number>();
 
-  private cdr = inject(ChangeDetectorRef);
-  private itemWidth: number = 0;
-  private gap: number = 0;
+  protected items: number[] = [];
 
-  //TODO:: luego preocupate de la logica del arrastre.
-
-  // Bandera para prevenir clicks después de arrastre
-  hasDragged = false;
-
-  startX = 0;
-  isDragging = false;
-  prevTranslate = 0;
-  currentTranslate = 0;
-
-  @ViewChild('paginationContainer', { static: false })
-  paginationContainer!: ElementRef;
-
-  ngAfterViewInit() {
-    this.calculateSizes();
-    this.updatePosition();
-    this.cdr.detectChanges(); // Trigger change detection manually
+  ngOnInit(): void {
+    this.generate();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['total_pages'] || changes['currentPageIndex']) {
-      setTimeout(() => {
-        this.calculateSizes();
-        this.updatePosition();
-      });
-    }
-  }
+  private generate(): void {
+    const arr: number[] = [];
+    const adjustedGroupNum = Math.min(this.quantity, this.totalPages);
+    const halfGroup = Math.floor(adjustedGroupNum / 2);
 
-  get pages(): number[] {
-    return this.total_pages ? Array.from({ length: this.total_pages }, (_, i) => i + 1) : [];
-  }
+    let start = Math.max(1, this.currentPage - halfGroup);
+    let end = Math.min(this.totalPages, this.currentPage + halfGroup);
 
-  calculateSizes(): void {
-    if (this.paginationContainer?.nativeElement) {
-      const container = this.paginationContainer.nativeElement;
-      const firstItem = container.querySelector('.btn');
-
-      if (firstItem) {
-        const containerStyle = window.getComputedStyle(container);
-        this.gap = parseFloat(containerStyle.gap) || 0;
-        this.itemWidth = firstItem.clientWidth + this.gap;
+    if (end - start < adjustedGroupNum) {
+      if (end < this.totalPages) {
+        end++;
+      } else {
+        start--;
       }
     }
+
+    for (let i = start; i <= end; i++) {
+      if (i > 0) { arr.push(i); }
+    }
+
+    this.items = arr;
   }
 
-  updatePosition(): void {
-    const targetPosition = -this.currentPageIndex * this.itemWidth;
-    this.currentTranslate = targetPosition;
-    this.prevTranslate = targetPosition;
-  }
-
-  // Resto de métodos con mejoras...
-
-  startDrag(event: MouseEvent | TouchEvent) {
-    this.isDragging = true;
-    const clientX = this.getClientX(event);
-    this.startX = clientX;
-  }
-
-  doDrag(event: MouseEvent | TouchEvent) {
-    if (!this.isDragging) return;
-    const clientX = this.getClientX(event);
-    const diff = clientX - this.startX;
-    this.currentTranslate = this.prevTranslate + diff;
-  }
-
-  endDrag() {
-    if (!this.isDragging) return;
-    this.isDragging = false;
-    this.prevTranslate = this.currentTranslate;
-  }
-
-  // Método auxiliar
-  private getClientX(event: MouseEvent | TouchEvent): number {
-    return (event as TouchEvent).touches?.[0]?.clientX ?? (event as MouseEvent).clientX;
-  }
-
-  protected setCurrentPage(index: number): void {
-    // Prevenir cambio si fue arrastre
-    if (this.hasDragged) return;
-
-    this.currentPageIndex = index;
-    this.changeCurrentIndex.emit(index);
-    this.animateToPosition(-index * this.itemWidth);
-  }
-
-  private animateToPosition(targetPosition: number) {
-    // ...código anterior...
-    // Asegurar posición final exacta
-    this.prevTranslate = targetPosition;
+  protected onNext(page: number) {
+    if (page > 0 && page !== this.currentPage && page <= this.totalPages) {
+      this.currentPage = page;
+      this.nextPage.emit(page);
+    }
   }
 }

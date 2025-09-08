@@ -3,6 +3,18 @@
     <h6 class="md:text-xl">Aquí podra administrar súper héroes</h6>
 
     <div class="flex items-center gap-2">
+      <mat-form-field class="md:col-span-2">
+        <mat-label> Buscar.. </mat-label>
+
+        <input
+          matInput
+          (keyup)="onFilter($event)"
+          placeholder="Spider man"
+          autocomplete="off"
+          upperCase
+        />
+      </mat-form-field>
+
       <a [routerLink]="['../', 'create']" class="btn" [matTooltip]="'Agregar súper héroe.'">
         <i class="material-icons">add</i>
         <span class="hidden md:inline">Agregar súper héroe</span>
@@ -12,53 +24,101 @@
 
   <div class="container-table">
     <table>
-      @if (paginated$ | async; as paginated) { @for (item of paginated.content; track $index) {
-      <tr>
-        <td class="whitespace-nowrap">
-          {{ item | json }}
-        </td>
+      <thead>
+        <tr>
+          <th scope="col">
+            <div class="flex items-center relative">
+              <button class="">
+                <span>ID</span>
+              </button>
+            </div>
+          </th>
 
-        <td class="whitespace-wrap">
-          <div class="inline-flex items-center gap-1">
-            <a
-              [routerLink]="['../', 'detail', item.id]"
-              class="btn m-0 p-1"
-              [matTooltip]="'Detalles súper héroe.'"
+          <th scope="col">
+            <div class="flex items-center relative">
+              <button class="">
+                <span>Nombre</span>
+              </button>
+            </div>
+          </th>
+
+          <th scope="col">
+            <div class="flex items-center relative">
+              <button class="">
+                <span>Identidad secreta</span>
+              </button>
+            </div>
+          </th>
+
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      @if(response$ | async; as res) {
+      <tbody>
+        @for (item of res.content; track item) {
+
+        <tr>
+          <td class="whitespace-nowrap text-sm">
+            <span>{{ item.id }}</span>
+          </td>
+
+          <td class="whitespace-nowrap text-sm">
+            <span>{{ item.name }}</span>
+          </td>
+
+          <td class="whitespace-nowrap text-sm">
+            <span>{{ item.secretIdentity }}</span>
+          </td>
+
+          <td class="whitespace-wrap">
+            <div class="inline-flex items-center gap-1">
+              <a
+                [routerLink]="['../', 'detail', item.id]"
+                class="btn m-0 p-1"
+                [matTooltip]="'Detalles súper héroe.'"
+              >
+                <i class="material-icons">preview</i>
+              </a>
+
+              <a
+                [routerLink]="['../', 'update', item.id]"
+                class="btn m-0 p-1"
+                [matTooltip]="'Modificar súper héroe.'"
+              >
+                <i class="material-icons">mode_edit</i>
+              </a>
+
+              <button
+                (click)="onDelete(item)"
+                class="btn m-0 p-1 bg-red-500"
+                [matTooltip]="'Eliminar súper héroe.'"
+              >
+                <i class="material-icons">delete_forever</i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <tr class="!bg-red-700">
+          <td colspan="100%">No se encontraron resultados..</td>
+        </tr>
+        }
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="100%" class="pt-4">
+            <c-paginator
+              [currentPage]="res.pagination.current_page"
+              [quantity]="res.pagination.page_size"
+              [totalPages]="res.pagination.total_pages"
+              (nextPage)="onSetCurrentPage($event)"
             >
-              <i class="material-icons">preview</i>
-            </a>
-
-            <a
-              [routerLink]="['../', 'update', item.id]"
-              class="btn m-0 p-1"
-              [matTooltip]="'Modificar súper héroe.'"
-            >
-              <i class="material-icons">mode_edit</i>
-            </a>
-
-            <button
-              (click)="onDelete(item)"
-              class="btn m-0 p-1 bg-red-500"
-              [matTooltip]="'Eliminar súper héroe.'"
-            >
-              <i class="material-icons">delete_forever</i>
-            </button>
-          </div>
-        </td>
-      </tr>
-      } @empty {
-      <p>No se encontraron resultados..</p>
-      }
-
-      <c-paginator
-        [currentPageIndex]="paginated.pagination.current_page"
-        [pageSize]="paginated.pagination.page_size"
-        [total_pages]="paginated.pagination.total_pages"
-        (changeCurrentIndex)="onSetCurrentPage($event)"
-      >
-      </c-paginator>
-      } @else {
-      <p>Cargando..</p>
+            </c-paginator>
+          </td>
+        </tr>
+      </tfoot>
       }
     </table>
   </div>

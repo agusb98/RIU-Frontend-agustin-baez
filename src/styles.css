@@ -14,10 +14,6 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-mat-error {
-  color: red !important;
-}
-
 /* ===== Scrollbar CSS ===== */
 /* https://webkit-scroll-gen.sourceforge.net/ */
 ::-webkit-scrollbar {
@@ -40,8 +36,10 @@ mat-error {
 /* Tailwind generic classes */
 @layer components {
   .btn {
+    @apply w-max;
+
     @apply flex;
-    @apply gap-2;
+    @apply gap-1;
     @apply items-center;
     @apply justify-center;
 
@@ -51,11 +49,10 @@ mat-error {
     @apply focus:outline-none;
     @apply active:brightness-90;
 
-    @apply p-2;
+    @apply px-4;
+    @apply py-2;
 
     @apply disabled:opacity-50;
-    @apply cursor-pointer;
-
     @apply shadow-sm;
     @apply bg-stone-800;
     @apply text-white;
@@ -73,26 +70,12 @@ mat-error {
   }
 
   .material-icons {
-    @apply mx-0;
-    @apply px-0;
     @apply select-none;
-  }
-
-  .card {
-    @apply rounded-lg;
-    @apply shadow-sm;
-    @apply p-2;
   }
 
   .container-table {
     @apply w-full;
     @apply overflow-x-auto;
-
-    @apply text-stone-800;
-    @apply bg-white;
-
-    @apply rounded-md;
-    @apply p-2;
   }
 
   table {
@@ -116,6 +99,12 @@ mat-error {
   }
 
   table tbody tr td {
+    @apply p-2;
+  }
+
+  .card {
+    @apply rounded-lg;
+    @apply shadow-sm;
     @apply p-2;
   }
 }

@@ -15,7 +15,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class HeroService {
+export class HeroService {  //Simulate 'API superhero' with localstorage
   private configSrv = inject(ConfigService);
   private readonly HEROES_KEY = 'heroes-local-data';
   private readonly DELAY_MS = 1500; // Simular latencia de red
@@ -40,6 +40,16 @@ export class HeroService {
     if (criteria.mainPower) {
       filteredHeroes = heroes.filter((hero) =>
         hero.mainPower!.toLowerCase().includes(criteria.mainPower!.toLowerCase())
+      );
+    }
+
+    if (criteria.coincidence) {
+      const search = criteria.coincidence.toLowerCase();
+      filteredHeroes = heroes.filter(
+        (hero) =>
+          hero.name!.toLowerCase().includes(search) ||
+          hero.secretIdentity!.toLowerCase().includes(search) ||
+          hero.mainPower!.toLowerCase().includes(search)
       );
     }
 

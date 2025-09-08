@@ -46,10 +46,10 @@ export class Paginated extends Hero implements OnInit {
     const value = (event.target as HTMLInputElement).value.trim();
 
     if (value.length >= 2) {
-      this.pCriterial.name = this.pCriterial.secretIdentity = this.pCriterial.mainPower = value;
+      this.pCriterial.coincidence = value;
       this.loadItems();
     } else if (value === '') {
-      this.pCriterial.name = this.pCriterial.secretIdentity = this.pCriterial.mainPower = '';
+      this.pCriterial.coincidence = '';
       this.loadItems();
     }
   }
